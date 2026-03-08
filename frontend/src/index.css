@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1f2937;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+
+  /* ─── Buttons ─── */
+  .btn-primary {
+    background-color: #1d645b;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 1px 4px rgba(29, 100, 91, 0.12);
+  }
+
+  .btn-primary:hover {
+    background-color: #0f4c47;
+    box-shadow: 0 4px 16px rgba(29, 100, 91, 0.22);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-gold {
+    background-color: #e6b422;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 20px rgba(230, 180, 34, 0.25);
+  }
+
+  .btn-gold:hover {
+    background-color: #c9a01e;
+    box-shadow: 0 6px 24px rgba(230, 180, 34, 0.35);
+  }
+
+  .btn-outline {
+    border: 2px solid #1d645b;
+    color: #1d645b;
+    background-color: transparent;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline:hover {
+    background-color: #1d645b;
+    color: #ffffff;
+  }
+
+  .btn-white {
+    background-color: #ffffff;
+    color: #1d645b;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  }
+
+  .btn-white:hover {
+    background-color: #e0f2e9;
+  }
+
+  /* ─── Cards ─── */
+  .card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid rgba(224, 242, 233, 0.8);
+    box-shadow: 0 2px 16px rgba(29, 100, 91, 0.07);
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    box-shadow: 0 8px 40px rgba(29, 100, 91, 0.13);
+    transform: translateY(-4px);
+  }
+
+  /* ─── Section helpers ─── */
+  .section-pad {
+    padding: 6rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-pad {
+      padding: 6rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-pad {
+      padding: 6rem 2rem;
+    }
+  }
+
+  .container-xl {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-label {
+    color: #3a9b8e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 0.5rem;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .section-sub {
+    color: #6b7280;
+    font-size: 1.0625rem;
+    margin-top: 0.75rem;
+  }
+
+  /* ─── Gradient text (solid green) ─── */
+  .gradient-text {
+    color: #1d645b;
+    -webkit-text-fill-color: #1d645b;
+  }
+
+  /* ─── Form inputs ─── */
+  .input {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0f2e9;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #1f2937;
+    font-size: 0.875rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: #9ca3af;
+  }
+
+  .input:focus {
+    border-color: #1d645b;
+    box-shadow: 0 0 0 3px rgba(29, 100, 91, 0.1);
+  }
+
+  .label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+}
+
+/* ─── Swiper overrides ─── */
+.swiper-pagination-bullet {
+  background: #3a9b8e !important;
+  opacity: 0.4;
+}
+
+.swiper-pagination-bullet-active {
+  background: #1d645b !important;
+  opacity: 1;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #1d645b !important;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #69c9b3;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a9b8e;
+}
