@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Instagram, Youtube, Facebook, Phone, Mail, MapPin } from 'lucide-react'
+import { Instagram, Facebook, Phone, Mail, MapPin } from 'lucide-react'
 
 const quickLinks = [
     { label: 'Beranda', href: '#hero' },
@@ -10,10 +10,16 @@ const quickLinks = [
     { label: 'Kontak', href: '#cta' },
 ]
 
+const TikTokIcon = () => (
+    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z" />
+    </svg>
+)
+
 const social = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
+    { icon: Instagram, href: 'https://www.instagram.com/vauzatamma_umroh/', label: 'Instagram' },
+    { icon: Facebook, href: 'https://web.facebook.com/vauzatammaabadi/', label: 'Facebook' },
+    { icon: TikTokIcon, href: 'https://www.tiktok.com/@vauzatamma_umroh', label: 'TikTok' },
 ]
 
 export default function Footer() {
@@ -50,6 +56,9 @@ export default function Footer() {
                             <p className="text-white/40 text-xs mt-1 text-right">
                                 QS. Ali Imran: 97
                             </p>
+                            <p className="text-white/55 text-xs mt-3 leading-relaxed italic border-t border-white/10 pt-3">
+                                "...Dan (di antara) kewajiban manusia terhadap Allah adalah melaksanakan ibadah haji ke Baitullah, yaitu bagi orang-orang yang mampu mengadakan perjalanan ke sana..."
+                            </p>
                         </div>
 
                         {/* Social icons */}
@@ -58,10 +67,12 @@ export default function Footer() {
                                 <a
                                     key={label}
                                     href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label={label}
-                                    className="w-9 h-9 rounded-xl bg-white/10 hover:bg-primary flex items-center justify-center transition-colors duration-200"
+                                    className="w-9 h-9 rounded-xl bg-white/10 hover:bg-primary flex items-center justify-center transition-colors duration-200 text-white/70 hover:text-white"
                                 >
-                                    <Icon size={16} className="text-white/70 group-hover:text-white" />
+                                    <Icon size={16} />
                                 </a>
                             ))}
                         </div>
@@ -92,24 +103,35 @@ export default function Footer() {
                     {/* Contact */}
                     <div>
                         <h4 className="font-semibold text-white text-sm mb-5 uppercase tracking-wider">Kontak</h4>
-                        <div className="space-y-4">
-                            {[
-                                { icon: Phone, text: '+62 812-3456-7890' },
-                                { icon: Mail, text: 'info@vauzatamma.com' },
-                                { icon: MapPin, text: 'Jl. Contoh No. 123, Jakarta Selatan 12345' },
-                            ].map(({ icon: Icon, text }) => (
-                                <div key={text} className="flex items-start gap-3">
-                                    <Icon size={14} className="text-accent mt-0.5 shrink-0" />
-                                    <span className="text-white/55 text-sm leading-snug">{text}</span>
+                        <div className="space-y-3">
+                            <div className="flex items-start gap-3">
+                                <Phone size={14} className="text-accent mt-0.5 shrink-0" />
+                                <div className="text-white/55 text-sm leading-snug space-y-0.5">
+                                    <p>0815 6666 777</p>
+                                    <p>0851 8310 6545</p>
+                                    <p>0855 5111 5500</p>
+                                    <p>0817 7665 5000</p>
                                 </div>
-                            ))}
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Mail size={14} className="text-accent mt-0.5 shrink-0" />
+                                <span className="text-white/55 text-sm leading-snug">vauzatammapremium77@gmail.com</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <MapPin size={14} className="text-accent mt-1 shrink-0" />
+                                <div className="text-white/55 text-sm leading-snug space-y-1.5">
+                                    <p>Jl. Kauman 21, Kota Malang - Jawa Timur</p>
+                                    <p>Jl. Kemang Timur No. 3F, Kemang - Jakarta Selatan</p>
+                                    <p>Royal Residence Cluster Crown Hill B15 No. 61, Lakarsantri – Surabaya</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
                     <p>© 2025 Vauza Tamma Abadi Haji & Umroh. Semua hak dilindungi.</p>
-                    <p>PPIU Resmi Kemenag RI · Izin Usaha No. XXX/XXX/2015</p>
+                    <p>PPIU Resmi Kemenag RI · SK No. U.493 Tahun 2021 · Akreditasi A</p>
                 </div>
             </div>
         </footer>

@@ -4,8 +4,8 @@ import { Shield, HeartHandshake, BadgeCheck, Clock, Users, Globe } from 'lucide-
 const reasons = [
     {
         icon: Shield,
-        title: 'Terdaftar Resmi Kemenag',
-        desc: 'Kami terdaftar dan tersertifikasi oleh Kementerian Agama RI sebagai penyelenggara PPIU haji dan umroh.',
+        title: 'PPIU Umroh Resmi Kemenag',
+        desc: 'Kami terdaftar dan tersertifikasi oleh Kementerian Agama RI sebagai penyelenggara resmi PPIU Umroh dengan Akreditasi A.',
     },
     {
         icon: HeartHandshake,

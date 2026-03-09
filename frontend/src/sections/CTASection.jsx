@@ -51,25 +51,46 @@ export default function CTASection() {
                         </p>
 
                         <div className="space-y-5 mb-10">
-                            {[
-                                { icon: Phone, label: 'WhatsApp / Telepon', value: '+62 812-3456-7890' },
-                                { icon: Mail, label: 'Email', value: 'info@vauzatamma.com' },
-                                { icon: MapPin, label: 'Kantor', value: 'Jl. Contoh No. 123, Jakarta Selatan' },
-                            ].map(({ icon: Icon, label, value }) => (
-                                <div key={label} className="flex items-start gap-4">
-                                    <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                                        <Icon size={16} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-white/50 text-xs">{label}</p>
-                                        <p className="text-white font-medium text-sm">{value}</p>
+                            <div className="flex items-start gap-4">
+                                <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+                                    <Phone size={16} className="text-white" />
+                                </div>
+                                <div>
+                                    <p className="text-white/50 text-xs mb-1">WhatsApp Admin</p>
+                                    <div className="text-white font-medium text-sm space-y-0.5">
+                                        <p>0815 6666 777</p>
+                                        <p>0851 8310 6545</p>
+                                        <p>0855 5111 5500</p>
+                                        <p>0817 7665 5000</p>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+                                    <Mail size={16} className="text-white" />
+                                </div>
+                                <div>
+                                    <p className="text-white/50 text-xs">Email</p>
+                                    <p className="text-white font-medium text-sm">vauzatammapremium77@gmail.com</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0 mt-1">
+                                    <MapPin size={16} className="text-white" />
+                                </div>
+                                <div>
+                                    <p className="text-white/50 text-xs mb-1">Kantor</p>
+                                    <div className="text-white font-medium text-sm space-y-1.5">
+                                        <p>Jl. Kauman 21, Kota Malang - Jawa Timur</p>
+                                        <p>Jl. Kemang Timur No. 3F, Kemang - Jakarta Selatan</p>
+                                        <p>Royal Residence Cluster Crown Hill B15 No. 61, Lakarsantri – Surabaya</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <a
-                            href="https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
+                            href="https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1dbd5b] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg"
@@ -120,9 +141,10 @@ export default function CTASection() {
                                 <div>
                                     <label className="label">Jenis Paket</label>
                                     <select name="package_type" value={form.package_type} onChange={handleChange} className="input">
-                                        <option value="umroh">Umroh</option>
-                                        <option value="haji">Haji</option>
-                                        <option value="haji_plus">Haji Plus</option>
+                                        <option value="umroh_reguler">Umroh Reguler</option>
+                                        <option value="umroh_plus_turki">Umroh Plus Turki</option>
+                                        <option value="umroh_plus_dubai">Umroh Plus Dubai</option>
+                                        <option value="umroh_plus_eropa">Umroh Plus Eropa</option>
                                     </select>
                                 </div>
                                 <div>

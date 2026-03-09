@@ -83,7 +83,7 @@ exports.createPackage = async (req, res) => {
     try {
         const {
             package_name, package_code, program_type, plus_destination,
-            description, full_seat, airline_id,
+            description, full_seat, airline_id, starting,
             departure_date,
             price_triple, price_double, price_quad
         } = req.body
@@ -91,8 +91,8 @@ exports.createPackage = async (req, res) => {
         // Insert package
         const pkgResult = await db.query(`
             INSERT INTO packages
-                (package_code, package_name, program_type, plus_destination, airline_id, description, full_seat, remaining_seat, created_at)
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$7,NOW())
+                (package_code, package_name, program_type, plus_destination, airline_id, description, full_seat, remaining_seat, starting, created_at)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$7,$8,NOW())
             RETURNING *
         `, [
             package_code || null,
@@ -101,7 +101,8 @@ exports.createPackage = async (req, res) => {
             plus_destination || null,
             airline_id || null,
             description || null,
-            full_seat || 0
+            full_seat || 0,
+            starting || null
         ])
 
         const pkg = pkgResult.rows[0]
@@ -144,7 +145,7 @@ exports.updatePackage = async (req, res) => {
         const { id } = req.params
         const {
             package_name, package_code, program_type, plus_destination,
-            description, full_seat, remaining_seat, airline_id,
+            description, full_seat, remaining_seat, airline_id, starting,
             departure_date,
             price_triple, price_double, price_quad
         } = req.body
@@ -158,10 +159,11 @@ exports.updatePackage = async (req, res) => {
                 airline_id        = $5,
                 description       = $6,
                 full_seat         = COALESCE($7, full_seat),
-                remaining_seat    = COALESCE($8, remaining_seat)
-            WHERE id = $9
+                remaining_seat    = COALESCE($8, remaining_seat),
+                starting          = $9
+            WHERE id = $10
             RETURNING *
-        `, [package_code, package_name, program_type, plus_destination, airline_id, description, full_seat, remaining_seat, id])
+        `, [package_code, package_name, program_type, plus_destination, airline_id, description, full_seat, remaining_seat, starting || null, id])
 
         if (!result.rows[0]) return res.status(404).json({ success: false, message: 'Package not found' })
 
@@ -424,13 +426,14 @@ exports.createFullPackage = async (req, res) => {
         // Insert into 'packages' table
         const pkgRes = await client.query(
             `INSERT INTO packages 
-            (package_code, package_name, program_type, plus_destination, description, full_seat, remaining_seat, airline_id, created_at) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW()) RETURNING id`,
+            (package_code, package_name, program_type, plus_destination, description, full_seat, remaining_seat, airline_id, starting, created_at) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW()) RETURNING id`,
             [
                 pkg.package_code || `VT-${Date.now()}`,
                 pkg.package_name, pkg.program_type || 'umroh',
                 pkg.plus_destination, pkg.description, pkg.full_seat || null,
-                pkg.remaining_seat || pkg.full_seat || null, pkg.airline_id || null
+                pkg.remaining_seat || pkg.full_seat || null, pkg.airline_id || null,
+                pkg.starting || null
             ]
         )
         const newPackageId = pkgRes.rows[0].id

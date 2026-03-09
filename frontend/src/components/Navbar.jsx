@@ -41,14 +41,25 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[68px]">
 
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-2.5 shrink-0">
-                    <img
-                        src={logoImg}
-                        alt="Vauza Tamma"
-                        className="h-10 w-auto object-contain"
-                    />
-                </Link>
+                <div className="flex items-center gap-4">
+                    {/* Mobile toggle */}
+                    <button
+                        className="md:hidden text-gray-700 hover:text-primary transition-colors p-1 -ml-1"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-2.5 shrink-0">
+                        <img
+                            src={logoImg}
+                            alt="Vauza Tamma"
+                            className="h-9 md:h-10 w-auto object-contain"
+                        />
+                    </Link>
+                </div>
 
                 {/* Desktop Nav — centered */}
                 <ul className="hidden md:flex items-center gap-7 absolute left-1/2 -translate-x-1/2">
@@ -66,26 +77,18 @@ export default function Navbar() {
                 </ul>
 
                 {/* Right CTA */}
-                <div className="hidden md:flex items-center gap-3">
+                <div className="flex items-center gap-3">
                     <a
-                        href="https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
+                        href="https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary flex items-center gap-2 text-sm px-5 py-2.5"
+                        className="btn-primary flex items-center gap-2 text-xs md:text-sm px-4 md:px-5 py-2 md:py-2.5 rounded-full md:rounded-xl shadow-lg shadow-primary/20"
                     >
-                        <Phone size={15} />
-                        Konsultasi
+                        <Phone size={14} className="md:w-[15px] md:h-[15px]" />
+                        <span className="hidden md:inline">Konsultasi</span>
+                        <span className="md:hidden font-bold">Tanya</span>
                     </a>
                 </div>
-
-                {/* Mobile toggle */}
-                <button
-                    className="md:hidden text-gray-700 hover:text-primary transition-colors p-1.5"
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    {menuOpen ? <X size={22} /> : <Menu size={22} />}
-                </button>
             </div>
 
             {/* Mobile Menu */}
@@ -110,7 +113,7 @@ export default function Navbar() {
                             ))}
                             <li className="pt-3">
                                 <a
-                                    href="https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
+                                    href="https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn-primary w-full flex items-center justify-center gap-2 text-sm"

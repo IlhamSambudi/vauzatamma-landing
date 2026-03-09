@@ -19,10 +19,7 @@ export default function PackageList() {
             .finally(() => setLoading(false))
     }, [])
 
-    const types = ['all', 'umroh', 'haji']
-    const filtered = filter === 'all'
-        ? packages
-        : packages.filter(p => p.package_type?.toLowerCase() === filter)
+    const filtered = packages
 
     return (
         <section id="packages" className="section-pad" style={{ backgroundColor: '#f0faf4' }}>
@@ -38,24 +35,8 @@ export default function PackageList() {
                     <p className="section-label">Pilih Perjalanan Anda</p>
                     <h2 className="section-title">Paket <span className="gradient-text">Terbaik Kami</span></h2>
                     <p className="section-sub mx-auto text-center">
-                        Berbagai pilihan paket haji dan umroh premium yang sesuai kebutuhan dan budget Anda.
+                        Berbagai pilihan paket umroh premium yang sesuai kebutuhan dan budget Anda.
                     </p>
-
-                    {/* Filter tabs */}
-                    <div className="flex justify-center gap-2 mt-8">
-                        {types.map((t) => (
-                            <button
-                                key={t}
-                                onClick={() => setFilter(t)}
-                                className={`px-5 py-2 rounded-xl text-sm font-semibold capitalize transition-all duration-200 ${filter === t
-                                    ? 'bg-primary text-white shadow-sm'
-                                    : 'bg-white text-gray-500 border border-sage hover:border-secondary hover:text-primary'
-                                    }`}
-                            >
-                                {t === 'all' ? 'Semua' : t.charAt(0).toUpperCase() + t.slice(1)}
-                            </button>
-                        ))}
-                    </div>
                 </motion.div>
 
                 {loading ? (

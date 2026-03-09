@@ -219,7 +219,7 @@ export default function PackageDetailPage() {
                             )}
 
                             <a
-                                href={`https://wa.me/6281234567890?text=Assalamualaikum%2C%20saya%20ingin%20info%20lebih%20lanjut%20tentang%20paket%20${encodeURIComponent(pkg.package?.package_name || '')}`}
+                                href={`https://wa.me/628156666777?text=Assalamualaikum%2C%20saya%20ingin%20info%20lebih%20lanjut%20tentang%20paket%20${encodeURIComponent(pkg.package?.package_name || '')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-primary w-full flex items-center justify-center gap-2 mb-3"
@@ -227,7 +227,7 @@ export default function PackageDetailPage() {
                                 Daftar Sekarang
                             </a>
                             <a
-                                href={`https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20konsultasi%20paket%20${encodeURIComponent(pkg.package?.package_name || '')}`}
+                                href={`https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20konsultasi%20paket%20${encodeURIComponent(pkg.package?.package_name || '')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-outline w-full flex items-center justify-center gap-2"

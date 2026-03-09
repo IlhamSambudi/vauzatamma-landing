@@ -41,7 +41,6 @@ export default function AdminPackageCreatePage() {
     // External references
     const [airlines, setAirlines] = useState([])
     const [hotelsList, setHotelsList] = useState([])
-
     useEffect(() => {
         Promise.all([adminGetAirlines(), adminGetHotels()])
             .then(([resAir, resHot]) => {
@@ -53,9 +52,9 @@ export default function AdminPackageCreatePage() {
 
     // --- State: Basic Info (packages) ---
     const [pkg, setPkg] = useState({
-        package_code: '', package_name: '', program_type: 'umroh',
+        package_code: '', package_name: '', program_type: 'umroh_reguler',
         plus_destination: '', airline_id: '', description: '',
-        full_seat: '', remaining_seat: ''
+        full_seat: '', remaining_seat: '', starting: 'Jakarta'
     })
 
     // --- State: Related Tables Array ---
@@ -158,16 +157,23 @@ export default function AdminPackageCreatePage() {
                 {/* --- Section 1: Basic Info --- */}
                 <Section title="1. Informasi Dasar Paket (Tabel Packages)">
                     <div className="grid grid-cols-2 gap-5">
-                        <Field label="Kode Paket"><input className="admin-input" name="package_code" value={pkg.package_code} onChange={handlePkg} placeholder="UMR-REG-001" /></Field>
+                        <Field label="Kode Paket"><input className="admin-input" name="package_code" value={pkg.package_code} onChange={handlePkg} placeholder="#2026_10H_SBY_SV_JUN26" /></Field>
                         <Field label="Nama Paket *"><input className="admin-input" name="package_name" value={pkg.package_name} onChange={handlePkg} placeholder="Umroh Reguler 9 Hari" /></Field>
                     </div>
 
                     <div className="grid grid-cols-3 gap-5">
                         <Field label="Tipe Program">
                             <select className="admin-input" name="program_type" value={pkg.program_type} onChange={handlePkg}>
-                                <option value="umroh">Umroh Reguler</option>
-                                <option value="haji">Haji Furoda/Khusus</option>
-                                <option value="haji_plus">Umroh Plus</option>
+                                <option value="umroh_reguler">Umroh Reguler</option>
+                                <option value="umroh_plus_turki">Umroh Plus Turki</option>
+                                <option value="umroh_plus_dubai">Umroh Plus Dubai</option>
+                                <option value="umroh_plus_eropa">Umroh Plus Eropa</option>
+                            </select>
+                        </Field>
+                        <Field label="Kota Keberangkatan">
+                            <select className="admin-input" name="starting" value={pkg.starting} onChange={handlePkg}>
+                                <option value="Jakarta">Jakarta</option>
+                                <option value="Surabaya">Surabaya</option>
                             </select>
                         </Field>
                         <Field label="Destinasi Plus">
@@ -179,13 +185,13 @@ export default function AdminPackageCreatePage() {
                                 <option value="mesir">Mesir / Cairo</option>
                             </select>
                         </Field>
-                        <Field label="Maskapai Penerbangan">
-                            <select className="admin-input" name="airline_id" value={pkg.airline_id} onChange={handlePkg}>
-                                <option value="">- Pilih Maskapai -</option>
-                                {airlines.map(a => <option key={a.id} value={a.id}>{a.name} ({a.code})</option>)}
-                            </select>
-                        </Field>
                     </div>
+                    <Field label="Maskapai Penerbangan">
+                        <select className="admin-input" name="airline_id" value={pkg.airline_id} onChange={handlePkg}>
+                            <option value="">- Pilih Maskapai -</option>
+                            {airlines.map(a => <option key={a.id} value={a.id}>{a.name} ({a.code})</option>)}
+                        </select>
+                    </Field>
 
                     <div className="grid grid-cols-2 gap-5">
                         <Field label="Total Seat (Kuota)"><input className="admin-input" type="number" name="full_seat" value={pkg.full_seat} onChange={handlePkg} placeholder="45" /></Field>
@@ -250,33 +256,45 @@ export default function AdminPackageCreatePage() {
                 {/* --- Section 4: Hotels --- */}
                 <Section title="4. Akomodasi Hotel (Tabel Package Hotels)">
                     <div className="space-y-4">
-                        {hotels.map((h, i) => (
-                            <div key={i} className="flex gap-4 items-end">
-                                <div className="flex-1">
-                                    <label className="text-xs text-gray-500 mb-1 block">Nama Hotel</label>
-                                    <select className="admin-input" value={h.hotel_id} onChange={e => updArr(setHotels, i, 'hotel_id', e.target.value)}>
-                                        <option value="">- Cari Hotel Database -</option>
-                                        {hotelsList.map(hl => <option key={hl.id} value={hl.id}>{hl.name} ⭐{hl.star_rating} ({hl.city})</option>)}
-                                    </select>
+                        {hotels.map((h, i) => {
+                            const rowFilteredHotels = hotelsList
+                                .filter(hl => hl.city?.toLowerCase().includes((h.city_type || 'makkah').toLowerCase()))
+                                .sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+
+                            return (
+                                <div key={i} className="flex gap-4 items-end">
+                                    <div className="w-1/4">
+                                        <label className="text-xs text-gray-500 mb-1 block">Kota</label>
+                                        <select className="admin-input bg-gray-50" value={h.city_type || 'makkah'} onChange={e => {
+                                            updArr(setHotels, i, 'city_type', e.target.value)
+                                            // Reset hotel selection when city changes
+                                            updArr(setHotels, i, 'hotel_id', '')
+                                        }}>
+                                            <option value="makkah">Makkah</option>
+                                            <option value="madinah">Madinah</option>
+                                            <option value="istanbul">Istanbul</option>
+                                            <option value="bursa">Bursa</option>
+                                            <option value="cappadocia">Cappadocia</option>
+                                            <option value="dubai">Dubai</option>
+                                        </select>
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="text-xs text-gray-500 mb-1 block">Pilih Hotel ({h.city_type || 'makkah'})</label>
+                                        <select className="admin-input" value={h.hotel_id} onChange={e => updArr(setHotels, i, 'hotel_id', e.target.value)}>
+                                            <option value="">- Pilih hotel dari daftar di atas -</option>
+                                            {rowFilteredHotels.map(hl => <option key={hl.id} value={hl.id}>{hl.name} ⭐{hl.star_rating}</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="w-[100px]">
+                                        <label className="text-xs text-gray-500 mb-1 block">Malam</label>
+                                        <input className="admin-input" type="number" placeholder="10" value={h.nights} onChange={e => updArr(setHotels, i, 'nights', e.target.value)} />
+                                    </div>
+                                    {hotels.length > 1 && (
+                                        <button onClick={() => rmArr(setHotels, i)} className="p-2.5 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 mb-0.5"><Trash2 size={16} /></button>
+                                    )}
                                 </div>
-                                <div className="w-1/4">
-                                    <label className="text-xs text-gray-500 mb-1 block">Tipe Kota</label>
-                                    <select className="admin-input" value={h.city_type} onChange={e => updArr(setHotels, i, 'city_type', e.target.value)}>
-                                        <option value="makkah">Makkah</option>
-                                        <option value="madinah">Madinah</option>
-                                        <option value="dubai">Dubai</option>
-                                        <option value="turki">Turki</option>
-                                    </select>
-                                </div>
-                                <div className="w-[100px]">
-                                    <label className="text-xs text-gray-500 mb-1 block">Malam</label>
-                                    <input className="admin-input" type="number" placeholder="10" value={h.nights} onChange={e => updArr(setHotels, i, 'nights', e.target.value)} />
-                                </div>
-                                {hotels.length > 1 && (
-                                    <button onClick={() => rmArr(setHotels, i)} className="p-2.5 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 mb-0.5"><Trash2 size={16} /></button>
-                                )}
-                            </div>
-                        ))}
+                            )
+                        })}
                         <button onClick={() => addArr(setHotels, { hotel_id: '', city_type: 'makkah', nights: '' })} className="text-sm font-bold text-primary flex items-center gap-2 mt-2 px-3 py-2 bg-primary/5 rounded-lg hover:bg-primary/10 w-max"><Plus size={16} /> Tambah Hotel</button>
                     </div>
                 </Section>

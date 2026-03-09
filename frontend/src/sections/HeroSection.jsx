@@ -53,7 +53,7 @@ export default function HeroSection() {
                         }}
                     >
                         <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#e6b422' }} />
-                        Terpercaya Sejak 2015 · PPIU Resmi Kemenag RI
+                        Terpercaya Sejak 2015 · PPIU Resmi Kemenag RI · Akreditasi A
                     </span>
                 </motion.div>
 
@@ -92,12 +92,12 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.55 }}
-                    className="flex flex-col sm:flex-row gap-3 justify-center"
+                    className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center w-full max-w-md sm:max-w-none mx-auto"
                 >
                     {/* Green CTA button */}
                     <button
                         onClick={() => scrollTo('#packages')}
-                        className="relative overflow-hidden rounded-xl px-8 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
+                        className="relative overflow-hidden w-full sm:w-auto rounded-xl px-8 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg"
                         style={{
                             background: 'linear-gradient(135deg, #5ec4ad 0%, #2e9082 100%)',
                             color: '#ffffff',
@@ -109,10 +109,10 @@ export default function HeroSection() {
 
                     {/* Glass outline button */}
                     <a
-                        href="https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
+                        href="https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-md border"
+                        className="flex items-center justify-center w-full sm:w-auto gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-95 backdrop-blur-md border"
                         style={{
                             background: 'rgba(255,255,255,0.1)',
                             borderColor: 'rgba(255,255,255,0.35)',
@@ -129,12 +129,12 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.75 }}
-                    className="mt-16 flex flex-wrap justify-center gap-4"
+                    className="mt-12 md:mt-16 flex flex-wrap justify-center gap-3 md:gap-4"
                 >
                     {stats.map((s, i) => (
                         <div
                             key={s.label}
-                            className="flex flex-col items-center backdrop-blur-md rounded-2xl px-7 py-4 border transition-all duration-300 hover:scale-105"
+                            className="flex flex-col items-center flex-1 min-w-[100px] sm:min-w-[140px] sm:flex-none backdrop-blur-md rounded-2xl px-3 sm:px-7 py-4 border transition-all duration-300 hover:scale-105"
                             style={{
                                 background: i === 0
                                     ? 'linear-gradient(135deg, rgba(94,196,173,0.20) 0%, rgba(255,255,255,0.06) 100%)'

@@ -39,34 +39,44 @@ export default function GalleryGrid() {
                     <p className="section-sub mx-auto text-center">Momen berharga jamaah kami di Tanah Haram.</p>
                 </motion.div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {images.slice(0, 6).map((img, i) => (
-                        <motion.div
-                            key={img.id || i}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: i * 0.07 }}
-                            onClick={() => setLightbox(img)}
-                            className={`relative overflow-hidden rounded-2xl cursor-pointer group shadow-sm hover:shadow-lg transition-all duration-300 ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
-                            style={{ aspectRatio: i === 0 ? '16/9' : '4/3' }}
-                        >
-                            <img
-                                src={img.src || img.image_url || img.file_url || `/uploads/${img.file_path}`}
-                                alt={img.caption || img.title || 'Gallery'}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            {/* Overlay on hover */}
-                            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/30 transition-all duration-300 flex items-center justify-center">
-                                <ZoomIn size={28} className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100" />
-                            </div>
-                            {(img.caption || img.title) && (
-                                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-white/70 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                    <p className="text-gray-900 text-xs font-semibold">{img.caption || img.title}</p>
+                <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] md:auto-rows-[220px] gap-3">
+                    {images.slice(0, 6).map((img, i) => {
+                        // Bento layout patterns: 0=wide+tall, 1=normal, 2=wide, 3=tall, 4=normal, 5=normal
+                        const bentoClass = [
+                            'col-span-2 row-span-2',  // 0: big hero
+                            'col-span-1 row-span-1',  // 1: normal
+                            'col-span-1 row-span-1',  // 2: normal
+                            'col-span-1 row-span-2',  // 3: tall
+                            'col-span-1 row-span-1',  // 4: normal
+                            'col-span-1 row-span-1',  // 5: normal
+                        ][i] || 'col-span-1 row-span-1'
+                        return (
+                            <motion.div
+                                key={img.id || i}
+                                initial={{ opacity: 0, scale: 0.97 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.07 }}
+                                onClick={() => setLightbox(img)}
+                                className={`${bentoClass} relative overflow-hidden rounded-2xl cursor-pointer group shadow-sm hover:shadow-xl transition-all duration-300`}
+                            >
+                                <img
+                                    src={img.src || img.image_url || img.file_url || `/uploads/${img.file_path}`}
+                                    alt={img.caption || img.title || 'Gallery'}
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                {/* Overlay on hover */}
+                                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/25 transition-all duration-300 flex items-center justify-center">
+                                    <ZoomIn size={28} className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100" />
                                 </div>
-                            )}
-                        </motion.div>
-                    ))}
+                                {(img.caption || img.title) && (
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                        <p className="text-white text-xs font-semibold">{img.caption || img.title}</p>
+                                    </div>
+                                )}
+                            </motion.div>
+                        )
+                    })}
                 </div>
             </div>
 

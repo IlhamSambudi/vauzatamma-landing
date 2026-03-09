@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
 
             {/* Button */}
             <a
-                href="https://wa.me/6281234567890?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
+                href="https://wa.me/628156666777?text=Assalamualaikum%20saya%20ingin%20info%20paket%20umroh"
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHovered(true)}

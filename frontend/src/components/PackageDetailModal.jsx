@@ -95,7 +95,7 @@ export default function PackageDetailModal({ packageId, onClose }) {
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                     onClick={e => e.stopPropagation()}
-                    className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl"
+                    className="bg-white rounded-3xl w-[95%] sm:w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl"
                 >
                     {/* Header */}
                     <div className="relative h-40 bg-gradient-to-br from-emerald-700 to-emerald-500 flex-shrink-0 overflow-hidden">
@@ -333,7 +333,7 @@ export default function PackageDetailModal({ packageId, onClose }) {
                                     </div>
                                 )}
                                 <a
-                                    href={`https://wa.me/6281234567890?text=${encodeURIComponent(waMsg)}`}
+                                    href={`https://wa.me/628156666777?text=${encodeURIComponent(waMsg)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors w-full sm:w-auto"

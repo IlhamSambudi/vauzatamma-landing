@@ -310,8 +310,11 @@ function HotelModal({ item, onClose, onSaved }) {
                             <option value="">— Pilih Kota —</option>
                             <option value="Makkah">Makkah</option>
                             <option value="Madinah">Madinah</option>
-                            <option value="Jeddah">Jeddah</option>
-                            <option value="Thaif">Thaif</option>
+                            <option value="Dubai">Dubai</option>
+                            <option value="Turki">Turki</option>
+                            <option value="Cappadocia">Cappadocia</option>
+                            <option value="Istanbul">Istanbul</option>
+                            <option value="Bursa">Bursa</option>
                         </select>
                     </Field>
                     <Field label="Bintang">
@@ -627,31 +630,83 @@ export default function AdminDashboardPage() {
                             )}
 
                             {/* ── HOTELS ── */}
-                            {activeTab === 'hotels' && (
-                                <div className="space-y-6">
-                                    <TopBar>
-                                        <span className="font-bold text-gray-700 px-2">{hotels.length} Hotel</span>
-                                        <button onClick={() => setModal({ type: 'hotel', data: null })} className="btn-primary flex gap-2"><Plus size={17} /> Tambah Hotel</button>
-                                    </TopBar>
-                                    <DataTable head={['Nama Hotel', 'Kota', 'Bintang', 'Negara', 'Aksi']}>
-                                        {hotels.map(h => (
-                                            <tr key={h.id} className="hover:bg-gray-50/50 group">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center"><Building2 size={15} className="text-amber-600" /></div>
-                                                        <span className="font-bold text-gray-900">{h.name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4"><span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-bold border border-emerald-100">{h.city || '-'}</span></td>
-                                                <td className="px-6 py-4 text-amber-500 font-semibold">{'★'.repeat(h.star_rating || 5)}</td>
-                                                <td className="px-6 py-4 text-gray-500 text-sm">{h.country || '-'}</td>
-                                                <td className="px-6 py-4"><ActionBtns onEdit={() => setModal({ type: 'hotel', data: h })} onDelete={() => confirmDelete(() => adminDeleteHotel(h.id))} /></td>
-                                            </tr>
-                                        ))}
-                                        {hotels.length === 0 && <EmptyRow cols={5} />}
-                                    </DataTable>
-                                </div>
-                            )}
+                            {activeTab === 'hotels' && (() => {
+                                const sortedHotels = (city) =>
+                                    hotels
+                                        .filter(h => h.city?.toLowerCase().includes(city.toLowerCase()))
+                                        .sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+
+                                const otherHotels = () =>
+                                    hotels
+                                        .filter(h => !h.city?.toLowerCase().includes('makkah') && !h.city?.toLowerCase().includes('madinah'))
+                                        .sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+
+                                const makkahHotels = sortedHotels('makkah')
+                                const madinahHotels = sortedHotels('madinah')
+                                const remainingHotels = otherHotels()
+
+                                const HotelRow = ({ h }) => (
+                                    <tr key={h.id} className="hover:bg-gray-50/50 group">
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center"><Building2 size={15} className="text-amber-600" /></div>
+                                                <span className="font-bold text-gray-900">{h.name}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4"><span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-bold border border-emerald-100">{h.city || '-'}</span></td>
+                                        <td className="px-6 py-4 text-amber-500 font-semibold">{'★'.repeat(h.star_rating || 5)}</td>
+                                        <td className="px-6 py-4 text-gray-500 text-sm">{h.country || '-'}</td>
+                                        <td className="px-6 py-4"><ActionBtns onEdit={() => setModal({ type: 'hotel', data: h })} onDelete={() => confirmDelete(() => adminDeleteHotel(h.id))} /></td>
+                                    </tr>
+                                )
+
+                                return (
+                                    <div className="space-y-6">
+                                        <TopBar>
+                                            <span className="font-bold text-gray-700 px-2">{hotels.length} Hotel Total</span>
+                                            <button onClick={() => setModal({ type: 'hotel', data: null })} className="btn-primary flex gap-2"><Plus size={17} /> Tambah Hotel</button>
+                                        </TopBar>
+
+                                        {/* Makkah Group */}
+                                        <div>
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center"><Building2 size={15} className="text-emerald-600" /></div>
+                                                <h3 className="font-bold text-gray-800">Hotel Makkah <span className="text-sm font-normal text-gray-400 ml-1">({makkahHotels.length} hotel · urutan A-Z)</span></h3>
+                                            </div>
+                                            <DataTable head={['Nama Hotel', 'Kota', 'Bintang', 'Negara', 'Aksi']}>
+                                                {makkahHotels.map(h => <HotelRow key={h.id} h={h} />)}
+                                                {makkahHotels.length === 0 && <EmptyRow cols={5} />}
+                                            </DataTable>
+                                        </div>
+
+                                        {/* Madinah Group */}
+                                        <div>
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center"><Building2 size={15} className="text-blue-600" /></div>
+                                                <h3 className="font-bold text-gray-800">Hotel Madinah <span className="text-sm font-normal text-gray-400 ml-1">({madinahHotels.length} hotel · urutan A-Z)</span></h3>
+                                            </div>
+                                            <DataTable head={['Nama Hotel', 'Kota', 'Bintang', 'Negara', 'Aksi']}>
+                                                {madinahHotels.map(h => <HotelRow key={h.id} h={h} />)}
+                                                {madinahHotels.length === 0 && <EmptyRow cols={5} />}
+                                            </DataTable>
+                                        </div>
+
+                                        {/* Lainnya Group */}
+                                        {remainingHotels.length > 0 && (
+                                            <div>
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <div className="w-8 h-8 rounded-xl bg-purple-100 flex items-center justify-center"><Building2 size={15} className="text-purple-600" /></div>
+                                                    <h3 className="font-bold text-gray-800">Hotel Lainnya <span className="text-sm font-normal text-gray-400 ml-1">({remainingHotels.length} hotel · urutan A-Z)</span></h3>
+                                                </div>
+                                                <DataTable head={['Nama Hotel', 'Kota', 'Bintang', 'Negara', 'Aksi']}>
+                                                    {remainingHotels.map(h => <HotelRow key={h.id} h={h} />)}
+                                                    {remainingHotels.length === 0 && <EmptyRow cols={5} />}
+                                                </DataTable>
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })()}
 
                             {/* ── MEDIA LIBRARY ── */}
                             {activeTab === 'media' && (
