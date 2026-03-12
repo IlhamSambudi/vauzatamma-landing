@@ -3,14 +3,14 @@ import { motion } from 'framer-motion'
 import { getGallery } from '../services/api'
 import { X, ZoomIn } from 'lucide-react'
 
-const FALLBACK = [
-    { id: 1, src: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=900&q=80', caption: 'Masjidil Haram, Makkah' },
-    { id: 2, src: 'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=700&q=80', caption: 'Masjid Nabawi, Madinah' },
-    { id: 3, src: 'https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?auto=format&fit=crop&w=700&q=80', caption: "Ka'bah Al-Musyarrafah" },
-    { id: 4, src: 'https://images.unsplash.com/photo-1443694400408-e6172a85b2e6?auto=format&fit=crop&w=700&q=80', caption: 'Kubah Masjid Nabawi' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1606040475932-96a1d4929e4b?auto=format&fit=crop&w=700&q=80', caption: 'Jamaah Haji di Arafah' },
-    { id: 6, src: 'https://images.unsplash.com/photo-1568754690447-79bceadc0cf5?auto=format&fit=crop&w=700&q=80', caption: 'Gerbang Makkah Al-Mukarramah' },
-]
+// const FALLBACK = [
+//     { id: 1, src: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=900&q=80', caption: 'Masjidil Haram, Makkah' },
+//     { id: 2, src: 'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=700&q=80', caption: 'Masjid Nabawi, Madinah' },
+//     { id: 3, src: 'https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?auto=format&fit=crop&w=700&q=80', caption: "Ka'bah Al-Musyarrafah" },
+//     { id: 4, src: 'https://images.unsplash.com/photo-1443694400408-e6172a85b2e6?auto=format&fit=crop&w=700&q=80', caption: 'Kubah Masjid Nabawi' },
+//     { id: 5, src: 'https://images.unsplash.com/photo-1606040475932-96a1d4929e4b?auto=format&fit=crop&w=700&q=80', caption: 'Jamaah Haji di Arafah' },
+//     { id: 6, src: 'https://images.unsplash.com/photo-1568754690447-79bceadc0cf5?auto=format&fit=crop&w=700&q=80', caption: 'Gerbang Makkah Al-Mukarramah' },
+// ]
 
 export default function GalleryGrid() {
     const [gallery, setGallery] = useState([])
