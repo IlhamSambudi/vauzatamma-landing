@@ -25,16 +25,29 @@ services:
       - ./uploads:/app/uploads
     networks:
       - internal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   frontend:
     image: ghcr.io/ilhamsambudi/vauzatamma-landing/frontend:latest
     container_name: vauza_frontend
     restart: always
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     networks:
       - traefik-network
       - internal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-network"
@@ -42,6 +55,8 @@ services:
       - "traefik.http.routers.vt-web.entrypoints=websecure"
       - "traefik.http.routers.vt-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.vt-web.loadbalancer.server.port=80"
+      - "traefik.http.services.vt-web.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.vt-web.loadbalancer.healthcheck.interval=5s"
       - "traefik.http.routers.vt-http.rule=Host(`vauzatamma.ezyindustries.my.id`)"
       - "traefik.http.routers.vt-http.entrypoints=web"
       - "traefik.http.routers.vt-http.middlewares=vt-redirect"
