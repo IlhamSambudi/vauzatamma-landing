@@ -63,7 +63,8 @@ jobs:
             set -e
             cd /home/ezyindustries/VT/vauzatamma-landing
 
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
 
             echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
             docker compose pull frontend backend
