@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: vauza_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: vauza_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - internal
+
+  backend:
+    image: ghcr.io/ilhamsambudi/vauzatamma-landing/backend:latest
+    container_name: vauza_backend
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - internal
+
+  frontend:
+    image: ghcr.io/ilhamsambudi/vauzatamma-landing/frontend:latest
+    container_name: vauza_frontend
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - traefik-network
+      - internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.vt-web.rule=Host(`vauzatamma.ezyindustries.my.id`)"
+      - "traefik.http.routers.vt-web.entrypoints=websecure"
+      - "traefik.http.routers.vt-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vt-web.loadbalancer.server.port=80"
+      - "traefik.http.routers.vt-http.rule=Host(`vauzatamma.ezyindustries.my.id`)"
+      - "traefik.http.routers.vt-http.entrypoints=web"
+      - "traefik.http.routers.vt-http.middlewares=vt-redirect"
+      - "traefik.http.middlewares.vt-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.vt-redirect.redirectscheme.permanent=true"
+
+networks:
+  traefik-network:
+    external: true
+  internal:
+    driver: bridge
+
+volumes:
+  postgres_data:
