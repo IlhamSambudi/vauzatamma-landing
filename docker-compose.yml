@@ -26,11 +26,11 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5000/health"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5000/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 10s
+      start_period: 15s
 
   frontend:
     image: ghcr.io/ilhamsambudi/vauzatamma-landing/frontend:latest
@@ -43,11 +43,11 @@ services:
       - traefik-network
       - internal
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:80"]
+      test: ["CMD", "curl", "-f", "http://localhost/"]
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 5s
+      start_period: 10s
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-network"
