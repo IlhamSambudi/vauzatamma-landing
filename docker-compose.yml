@@ -10,29 +10,45 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
     networks:
       - internal
 
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: ghcr.io/ilhamsambudi/vauzatamma-landing/backend:latest
     container_name: vauza_backend
     restart: always
     depends_on:
       - postgres
+    ports:
+      - "5001:5000"
     env_file:
       - ./backend/.env
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=vauza_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
     volumes:
       - ./uploads:/app/uploads
     networks:
       - internal
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:5000/health || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5000/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 15s
 
   frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     image: ghcr.io/ilhamsambudi/vauzatamma-landing/frontend:latest
     container_name: vauza_frontend
     restart: always

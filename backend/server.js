@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).json({ success: false, message: err.message || 'Internal server error' })
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`\n🕌 Vauza Tamma Backend running on port ${PORT}`)
     console.log(`📦 API: http://localhost:${PORT}/api`)
     console.log(`✅ Health: http://localhost:${PORT}/health`)

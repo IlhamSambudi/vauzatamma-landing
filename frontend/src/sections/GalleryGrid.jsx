@@ -4,12 +4,12 @@ import { getGallery } from '../services/api'
 import { X, ZoomIn } from 'lucide-react'
 
 const FALLBACK = [
-    { id: 1, src: 'https://unsplash.com/photos/brown-and-black-concrete-building-6Aa4EeZTdqw', caption: 'Kaaba' },
-    { id: 2, src: 'https://unsplash.com/photos/a-tall-building-with-a-green-dome-on-top-of-it-c1QVYdg5_io', caption: 'Masjid Nabawi, Madinah' },
-    { id: 3, src: 'https://unsplash.com/photos/brown-high-rise-buildin-IOBIgKmjm1Y', caption: "Masjidil Haram, Makkah" },
-    { id: 4, src: 'https://unsplash.com/photos/a-green-dome-and-a-white-dome-on-a-building-FDmr11vM_Ow', caption: 'Kubah Masjid Nabawi' },
-    { id: 5, src: 'https://unsplash.com/photos/brown-concrete-building-during-daytime-FLFjAn3gQI8', caption: 'Masjidil Haram, Makkah' },
-    { id: 6, src: 'https://unsplash.com/photos/white-concrete-tower-R6rh5ttDO-4', caption: 'Pelataran Masjid Nabawi' },
+    { id: 1, src: 'https://images.unsplash.com/photo-1565552643983-c288f342b404?q=80&w=800&auto=format&fit=crop', caption: 'Kaaba' },
+    { id: 2, src: 'https://images.unsplash.com/photo-1591418765270-38148b8b0e5d?q=80&w=800&auto=format&fit=crop', caption: 'Masjid Nabawi, Madinah' },
+    { id: 3, src: 'https://images.unsplash.com/photo-1580418827493-f2b22b64dd19?q=80&w=800&auto=format&fit=crop', caption: "Masjidil Haram, Makkah" },
+    { id: 4, src: 'https://images.unsplash.com/photo-1597086884877-c33ea981f965?q=80&w=800&auto=format&fit=crop', caption: 'Kubah Masjid Nabawi' },
+    { id: 5, src: 'https://images.unsplash.com/photo-1579450841285-d601a9f02434?q=80&w=800&auto=format&fit=crop', caption: 'Masjidil Haram, Makkah' },
+    { id: 6, src: 'https://images.unsplash.com/photo-1584288057276-80db63d11b2d?q=80&w=800&auto=format&fit=crop', caption: 'Pelataran Masjid Nabawi' },
 ]
 
 export default function GalleryGrid() {
@@ -95,8 +95,8 @@ export default function GalleryGrid() {
                         <X size={22} />
                     </button>
                     <img
-                        src={lightbox.src || lightbox.file_url}
-                        alt={lightbox.caption || 'Gallery'}
+                        src={lightbox.src || lightbox.image_url || lightbox.file_url || `/uploads/${lightbox.file_path}`}
+                        alt={lightbox.caption || lightbox.title || 'Gallery'}
                         className="max-w-full max-h-[88vh] object-contain rounded-2xl shadow-2xl"
                         onClick={(e) => e.stopPropagation()}
                     />
